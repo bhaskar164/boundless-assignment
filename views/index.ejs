@@ -1,16 +1,15 @@
 <%- include("./partials/header") %> 
 <div class="container">
-	<div class="">
-		<div>
-			<%json.forEach(function(d){ %>
-				
-			<img src= "<%=d['urls'].small%>" >
+		<div class = "container">
+		<div class="row">
+			<%json.forEach(function(image){ %>
+				<div class="card" style="width: 14rem;">
+					  <img class="card-img-top" src="<%=image['urls'].small%>" alt="Card image cap">
+					
+				</div>
 		<%});%>
-			
+			</div>
 	</div>
-		
-			
 </div>
 		
-
 <%- include("./partials/footer") %> 

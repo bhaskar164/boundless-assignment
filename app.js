@@ -21,12 +21,20 @@ const unsplash = new Unsplash({
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
+let photos =[];
+
 app.get('/',function(req,res){
 	
 	unsplash.photos.listPhotos(2, 15, "latest")
 	.then(toJson)
 	.then(json => {
-		console.log(json[0]);
+		console.log(json[0]['description']);
+		json.forEach(function(data){
+			photos.push(data);
+			console.log(data.description);
+			console.log("---------------");
+		});
+		// console.log(photos.length);
 		console.log(json[0]['urls'].small);
 		res.render("index.ejs",{json:json});
 	});
