@@ -2,12 +2,24 @@
 <div class="container">
 		<div class = "container">
 		<div class="row">
-			<%json.forEach(function(image){ %>
+			<h1><%if(searchFlag==0){%></h1>
+			<%pics.forEach(function(image){ %>
+			<div class = "col-lg-3 mb-4">
 				<div class="card" style="width: 14rem;">
 					  <img class="card-img-top" src="<%=image['urls'].small%>" alt="Card image cap">
-					
+					 <p class="card-img-title"> <%=image.alt_description%></p>
 				</div>
+			</div>
+				
 		<%});%>
+			<%}else if(searchFlag==1){%>
+				<%pics.forEach(function(image){ %>
+					<div class="card" style="width: 14rem;">
+						  <img class="card-img-top" src="<%=image%>" alt="Card image cap">
+
+					</div>
+				<%});%>
+			<%}%>
 			</div>
 	</div>
 </div>

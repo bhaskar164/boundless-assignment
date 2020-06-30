@@ -10,6 +10,7 @@ const Unsplash = require('unsplash-js').default;
 const toJson = require('unsplash-js').toJson;
 // const unsplash = new Unsplash({ accessKey: "y6J7kHQIy4hZW1nyGXsLEYYePhNxsiUaJhyaCspYTuY" });
 
+app.use(express.static("public"));
 
 
 const unsplash = new Unsplash({
@@ -22,22 +23,47 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 let photos =[];
+let searchFlag = 0;
 
 app.get('/',function(req,res){
 	
-	unsplash.photos.listPhotos(2, 15, "latest")
+	unsplash.photos.listPhotos(2, 20, "latest")
 	.then(toJson)
 	.then(json => {
-		console.log(json[0]['description']);
+		photos=[];
 		json.forEach(function(data){
 			photos.push(data);
-			console.log(data.description);
-			console.log("---------------");
 		});
-		// console.log(photos.length);
-		console.log(json[0]['urls'].small);
-		res.render("index.ejs",{json:json});
+		searchFlag=0;
+		res.render("index.ejs",{pics:json,searchFlag:searchFlag});
 	});
+});
+
+app.post('/search',function(req,res){
+	let myMap = new Map();
+	// console.log(photos.length);
+	photos.forEach(function(photo){
+		let stringVal  = photo.alt_description;
+		myMap.set(stringVal,photo.urls.small);
+	});
+	
+	let searchkey = req.body.searchkey;
+	let foundData = [];
+	for (let [key, value] of myMap.entries()) {
+		// console.log(key + ' = ' + value);/w3schools/i
+		let str = key;
+		let	reg = new RegExp(searchkey);
+		// console.log(reg);
+		let result = str.match(reg);
+		if(result){
+			foundData.push(value);
+		}
+		// console.log("foundDAta: "+foundData.length);
+	}
+	// console.log("MAP SIZE = "+ myMap.size);
+	// console.log("MAP SIZE = "+ myMap.);
+searchFlag =1;
+	res.render("index.ejs",{pics:foundData,searchFlag:searchFlag});
 });
 
 app.listen(81,function(){
