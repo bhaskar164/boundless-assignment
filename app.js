@@ -1,18 +1,15 @@
-const express = require('express'),
-	  bodyParser = require('body-parser'),
-	  app = express();
-const fetch = require('node-fetch');
-const parseJson = require('parse-json');
+     const express 	= require('express'),
+	 	bodyParser 	= require('body-parser'),
+	           app  = express(),
+	         fetch 	= require('node-fetch'),
+	     parseJson 	= require('parse-json');
+
 global.fetch = fetch;
-// import Unsplash, { toJson } from "unsplash-js";
+app.use(express.static("public"));
+
 //Setting Unsplash Api
 const Unsplash = require('unsplash-js').default;
 const toJson = require('unsplash-js').toJson;
-// const unsplash = new Unsplash({ accessKey: "y6J7kHQIy4hZW1nyGXsLEYYePhNxsiUaJhyaCspYTuY" });
-
-app.use(express.static("public"));
-
-
 const unsplash = new Unsplash({
   accessKey: "y6J7kHQIy4hZW1nyGXsLEYYePhNxsiUaJhyaCspYTuY",
   secret: "4Uvj8P1wDFGAtiCMcHNQhhauQKv3VZpb4xZTvJ73FyY"
@@ -39,9 +36,10 @@ app.get('/',function(req,res){
 	});
 });
 
+
+//Searching in photos whith given keyword!
 app.post('/search',function(req,res){
 	let myMap = new Map();
-	// console.log(photos.length);
 	photos.forEach(function(photo){
 		let stringVal  = photo.alt_description;
 		myMap.set(stringVal,photo.urls.small);
@@ -50,18 +48,15 @@ app.post('/search',function(req,res){
 	let searchkey = req.body.searchkey;
 	let foundData = [];
 	for (let [key, value] of myMap.entries()) {
-		// console.log(key + ' = ' + value);/w3schools/i
 		let str = key;
 		let	reg = new RegExp(searchkey);
-		// console.log(reg);
 		let result = str.match(reg);
 		if(result){
 			foundData.push(value);
 		}
-		// console.log("foundDAta: "+foundData.length);
+		
 	}
-	// console.log("MAP SIZE = "+ myMap.size);
-	// console.log("MAP SIZE = "+ myMap.);
+	
 searchFlag =1;
 	res.render("index.ejs",{pics:foundData,searchFlag:searchFlag});
 });

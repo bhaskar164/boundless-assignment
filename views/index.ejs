@@ -1,12 +1,11 @@
 <%- include("./partials/header") %> 
 <div class="container">
-		<div class = "container">
-		<div class="row">
-			<h1><%if(searchFlag==0){%></h1>
+		<div class = "row" id="swaplst">
+			<%if(searchFlag==0){%>
 			<%pics.forEach(function(image){ %>
 			<div class = "col-lg-3 mb-4">
 				<div class="card" style="width: 14rem;">
-					  <img class="card-img-top" src="<%=image['urls'].small%>" alt="Card image cap">
+					<a href="<%=image['urls'].small%>" target="_blank"><img class="card-img-top" src="<%=image['urls'].small%>" alt="Card image cap"></a>
 					 <p class="card-img-title"> <%=image.alt_description%></p>
 				</div>
 			</div>
@@ -22,6 +21,5 @@
 			<%}%>
 			</div>
 	</div>
-</div>
 		
 <%- include("./partials/footer") %> 

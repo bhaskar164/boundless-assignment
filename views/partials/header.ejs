@@ -10,7 +10,7 @@
 				<link rel="stylesheet" type="text/css" href="/stylesheets/grid.css">
 		</head>
 		<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
   <a class="navbar-brand" href="/">PHOTOHOLIC</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -23,8 +23,8 @@
           VIEW
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">GRID</a>
-          <a class="dropdown-item" href="#">LIST</a>
+          <button type="button" class="dropdown-item btn btn-default" id="grd">GRID</button>
+          <button type="button" class="dropdown-item btn btn-default" id ="lst">LIST</button>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action = "/search" method="POST">
